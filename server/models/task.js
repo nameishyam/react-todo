@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Todo extends Model {
+  class Task extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,40 +9,27 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Todo.belongsTo(models.User, {
+      Task.belongsTo(models.User, {
         foreignKey: "userId",
       });
 
-      Todo.belongsTo(models.Task, {
+      Task.hasMany(models.Todo, {
         foreignKey: "taskId",
       });
     }
 
-    static getAllTodos(userId, taskId) {
+    static getAllTasks(userId) {
       return this.findAll({
         where: {
           userId,
-          taskId,
         },
       });
     }
 
-    static createTodo({ title, description, dueDate, progress }) {
+    static createTask(name) {
       return this.create({
-        title,
-        description,
-        dueDate,
-        progress,
-      });
-    }
-
-    static async deleteTodo(id, userId, taskId) {
-      await this.destroy({
-        where: {
-          id,
-          userId,
-          taskId,
-        },
+        name,
+        completed: false,
       });
     }
 
@@ -52,17 +39,15 @@ module.exports = (sequelize, DataTypes) => {
         : this.update({ completed: true });
     }
   }
-  Todo.init(
+  Task.init(
     {
-      title: DataTypes.STRING,
-      description: DataTypes.STRING,
-      dueDate: DataTypes.DATEONLY,
-      progress: DataTypes.INTEGER,
+      name: DataTypes.STRING,
+      completed: DataTypes.BOOLEAN,
     },
     {
       sequelize,
-      modelName: "Todo",
+      modelName: "Task",
     }
   );
-  return Todo;
+  return Task;
 };
