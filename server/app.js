@@ -1,6 +1,11 @@
 const express = require("express");
+const bodyParser = require("body-parser");
+const { User, Todo } = require("./models");
+const cors = require("cors");
+
 const app = express();
-const { users, todos } = require("./models");
+app.use(bodyParser.json());
+app.use(cors());
 
 app.get("/", (request, response) => {
   response.send("hello");
@@ -8,8 +13,9 @@ app.get("/", (request, response) => {
 
 app.get("/todos", async (request, response) => {
   try {
-    const todo = await todos.findAll();
-    return response.json(todos);
+    const userId = request.body.id;
+    const todo = await Todo.getAllTodos(userId);
+    return response.json(todo);
   } catch (error) {
     return response.status(500).json({ error: error.message });
   }
@@ -17,8 +23,17 @@ app.get("/todos", async (request, response) => {
 
 app.post("/todos", async (request, response) => {
   try {
-    const todo = await todos.create(request.body);
-    return response.json(todos);
+    const title = request.body.title;
+    const description = request.body.description;
+    const dueDate = request.body.dueDate;
+    const progress = request.body.progress;
+    const todo = await Todo.createTodo({
+      title,
+      description,
+      dueDate,
+      progress,
+    });
+    return response.json(todo);
   } catch (error) {
     return response.status(500).json({ error: error.message });
   }
