@@ -21,22 +21,32 @@ app.get("/todos", async (request, response) => {
   }
 });
 
-app.post("/todos", async (request, response) => {
+app.post("/todos/:userEmail", (request, response) => {
   try {
-    const title = request.body.title;
-    const description = request.body.description;
-    const dueDate = request.body.dueDate;
-    const progress = request.body.progress;
-    const todo = await Todo.createTodo({
-      title,
-      description,
-      dueDate,
-      progress,
-    });
-    return response.json(todo);
+    const { userEmail } = request.params;
+    console.log(userEmail);
+    return response.json({ userEmail });
   } catch (error) {
     return response.status(500).json({ error: error.message });
   }
 });
+
+// app.post("/todos", async (request, response) => {
+//   try {
+//     const title = request.body.title;
+//     const description = request.body.description;
+//     const dueDate = request.body.dueDate;
+//     const progress = request.body.progress;
+//     const todo = await Todo.createTodo({
+//       title,
+//       description,
+//       dueDate,
+//       progress,
+//     });
+//     return response.json(todo);
+//   } catch (error) {
+//     return response.status(500).json({ error: error.message });
+//   }
+// });
 
 module.exports = app;
