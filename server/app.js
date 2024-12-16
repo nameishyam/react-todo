@@ -41,15 +41,20 @@ app.post("/login", (request, response) => {
     });
 });
 
-app.get("/user", (request, response) => {
+app.get("/user", async (request, response) => {
   try {
-    const email = request.body.email;
-    const user = User.findOne({
+    const email = request.query.email;
+    const user = await User.findOne({
       where: {
         email,
       },
     });
-    return response.status(200).json(user);
+    if (user) {
+      const { fname, lname, email } = user;
+      return response.status(200).json({ fname, lname, email });
+    } else {
+      return response.status(404).json({ message: "User not found" });
+    }
   } catch (error) {
     return response.status(500).json({ error: error.message });
   }

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import Axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -23,17 +24,18 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8000/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await Axios.post(
+        "http://localhost:8000/login",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-      if (response.ok) {
-        const data = await response.json();
-        Cookies.set("userEmail", data.email);
+      if (response.status === 200) {
+        Cookies.set("userEmail", response.data.email);
         console.log("login successful");
         navigate("/user");
       } else {
