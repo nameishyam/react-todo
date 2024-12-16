@@ -11,44 +11,6 @@ app.get("/", (request, response) => {
   response.send("hello");
 });
 
-app.get("/todos", async (request, response) => {
-  try {
-    const userId = request.body.id;
-    const todo = await Todo.getAllTodos(userId);
-    return response.json(todo);
-  } catch (error) {
-    return response.status(500).json({ error: error.message });
-  }
-});
-
-app.post("/todos/:userEmail", (request, response) => {
-  try {
-    const { userEmail } = request.params;
-    console.log(userEmail);
-    return response.json({ userEmail });
-  } catch (error) {
-    return response.status(500).json({ error: error.message });
-  }
-});
-
-// app.post("/todos", async (request, response) => {
-//   try {
-//     const title = request.body.title;
-//     const description = request.body.description;
-//     const dueDate = request.body.dueDate;
-//     const progress = request.body.progress;
-//     const todo = await Todo.createTodo({
-//       title,
-//       description,
-//       dueDate,
-//       progress,
-//     });
-//     return response.json(todo);
-//   } catch (error) {
-//     return response.status(500).json({ error: error.message });
-//   }
-// });
-
 app.post("/register", (request, response) => {
   const { fname, lname, email, password } = request.body;
   User.create({ fname, lname, email, password })
@@ -79,12 +41,15 @@ app.post("/login", (request, response) => {
     });
 });
 
-app.get("/todos", async (request, response) => {
+app.get("/user", (request, response) => {
   try {
-    const userId = request.body.id;
-    const user = await User.findByPk(userId);
-    const name = user.fname;
-    return response.json({ name });
+    const email = request.body.email;
+    const user = User.findOne({
+      where: {
+        email,
+      },
+    });
+    return response.status(200).json(user);
   } catch (error) {
     return response.status(500).json({ error: error.message });
   }

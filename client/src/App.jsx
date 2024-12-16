@@ -7,6 +7,7 @@ import Register from "./auth/Register";
 import Login from "./auth/Login";
 import Footer from "./components/Footer";
 import Todos from "./components/Todos";
+import User from "./auth/User";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/todos" element={<Todos />} />
+          <Route path="/user" element={<User />} />
           <Route path="/about" element={<About />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />

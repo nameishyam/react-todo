@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Cookie from "js-cookie";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -36,8 +37,9 @@ const Register = () => {
 
       if (response.ok) {
         console.log("Registration successful!");
+        Cookie.set("userEmail", formData.email);
         alert("Registration successful!");
-        navigate("/todos");
+        navigate("/user");
       } else {
         console.error("Registration failed");
         alert("Registration failed. Try again.");

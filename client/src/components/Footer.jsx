@@ -7,12 +7,16 @@ function Footer() {
         <a
           href="https://github.com/nameishyam"
           className="text-gray-200 hover:text-blue-400 transition-all duration-200"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           GitHub
         </a>
         <a
           href="https://www.linkedin.com/in/nameishyam/"
           className="text-gray-200 hover:text-blue-400 transition-all duration-200"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           LinkedIn
         </a>

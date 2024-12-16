@@ -33,9 +33,9 @@ const Login = () => {
 
       if (response.ok) {
         const data = await response.json();
-        Cookies.set("userId", data.id);
+        Cookies.set("userEmail", data.email);
         console.log("login successful");
-        navigate("/todos");
+        navigate("/user");
       } else {
         console.log("login failed");
       }
