@@ -37,13 +37,14 @@ const Task = () => {
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
       <input
-        name="task"
+        name="name" // Match this with the state property
         type="text"
         onChange={handleChange}
         placeholder=" "
         className="w-full py-3 px-4 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-gray-600"
         required
       />
+
       <button
         type="submit"
         className="w-full py-3 px-6 bg-gray-700 text-white rounded-md font-semibold hover:bg-gray-600 transition-all duration-200"

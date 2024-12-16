@@ -3,7 +3,7 @@ import Axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import Task from "../components/Task";
-import Todos from "../components/Todos";
+import Tasks from "../components/Tasks";
 
 const User = () => {
   const [user, setUser] = useState({
@@ -11,6 +11,19 @@ const User = () => {
     lname: "",
     email: "",
   });
+
+  const [tasks, setTasks] = useState([]);
+
+  const handleTasks = async () => {
+    try {
+      const response = await Axios.get("http://localhost:8000/tasks", {
+        params: { userEmail },
+      });
+      setTasks(response.data); // Set the tasks directly
+    } catch (error) {
+      console.error("Failed to fetch tasks:", error);
+    }
+  };
 
   const userEmail = Cookies.get("userEmail");
   const handleUser = async () => {
@@ -24,6 +37,7 @@ const User = () => {
 
   useEffect(() => {
     handleUser();
+    handleTasks();
   }, []);
 
   const navigate = useNavigate();
@@ -45,14 +59,16 @@ const User = () => {
             Signout
           </button>
         </div>
-        <div className="min-h-screen bg-gray-800 flex items-center justify-center space-x-6">
-          <div className="bg-white/10 backdrop-blur-md p-8 rounded-xl shadow-lg w-full max-w-md">
-            <p className="text-white text-lg">Todos</p>
-            <Todos />
-          </div>
-          <div className="bg-white/10 backdrop-blur-md p-8 rounded-xl shadow-lg w-full max-w-md">
-            <p className="text-white text-lg mb-3">Add a Task</p>
-            <Task />
+        <div className="min-h-screen bg-gray-800 flex items-center justify-center">
+          <div className="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-6">
+            <div className="bg-white/10 backdrop-blur-md p-8 rounded-xl shadow-lg w-80 sm:w-96 transform transition duration-300 hover:scale-105">
+              <p className="text-white text-lg mb-3">Tasks</p>
+              <Tasks tasks={tasks} />
+            </div>
+            <div className="bg-white/10 backdrop-blur-md p-8 rounded-xl shadow-lg w-80 sm:w-96 transform transition duration-300 hover:scale-105">
+              <p className="text-white text-lg mb-3">Add a Task</p>
+              <Task />
+            </div>
           </div>
         </div>
       </div>
