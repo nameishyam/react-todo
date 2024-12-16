@@ -136,4 +136,23 @@ app.get("/user", async (request, response) => {
   }
 });
 
+app.post("/task", async (request, response) => {
+  const { name, userEmail } = request.body;
+  const user = await User.findOne({
+    where: {
+      email: userEmail,
+    },
+  });
+  const userId = user.id;
+  try {
+    const newTask = await Task.create({
+      name,
+      userId,
+    });
+    return response.status(200).json(newTask);
+  } catch (error) {
+    return response.status(500).json({ error: error.message });
+  }
+});
+
 module.exports = app;

@@ -51,7 +51,7 @@ const User = () => {
             <Todos />
           </div>
           <div className="bg-white/10 backdrop-blur-md p-8 rounded-xl shadow-lg w-full max-w-md">
-            <p className="text-white text-lg">Add a Task</p>
+            <p className="text-white text-lg mb-3">Add a Task</p>
             <Task />
           </div>
         </div>
