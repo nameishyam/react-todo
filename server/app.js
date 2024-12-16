@@ -43,7 +43,7 @@ app.post("/login", (request, response) => {
 
 app.get("/user", async (request, response) => {
   try {
-    const email = request.query.email;
+    const email = request.query.userEmail;
     const user = await User.findOne({
       where: {
         email,

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Cookie from "js-cookie";
+import Axios from "axios";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -27,8 +28,7 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8000/register", {
-        method: "POST",
+      const response = await Axios.post("http://localhost:8000/register", {
         headers: {
           "Content-Type": "application/json",
         },

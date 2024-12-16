@@ -6,7 +6,6 @@ import Header from "./components/Header";
 import Register from "./auth/Register";
 import Login from "./auth/Login";
 import Footer from "./components/Footer";
-import Todos from "./components/Todos";
 import User from "./auth/User";
 
 const App = () => {
