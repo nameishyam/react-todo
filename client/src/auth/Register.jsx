@@ -28,14 +28,17 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const response = await Axios.post("http://localhost:8000/register", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await Axios.post(
+        "http://localhost:8000/register",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-      if (response.ok) {
+      if (response.status === 200) {
         console.log("Registration successful!");
         Cookie.set("userEmail", formData.email);
         alert("Registration successful!");
