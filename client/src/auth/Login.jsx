@@ -1,7 +1,53 @@
-import React from "react";
+const Login = () => {
+  return (
+    <>
+      <div>
+        <form className="form">
+          <p className="title">Register </p>
+          <p className="message">Signup now and get full access to our app. </p>
+          <div className="flex">
+            <label>
+              <input required="" placeholder="" type="text" className="input" />
+              <span>Firstname</span>
+            </label>
 
-function login() {
-  return <div>login</div>;
-}
+            <label>
+              <input required="" placeholder="" type="text" className="input" />
+              <span>Lastname</span>
+            </label>
+          </div>
 
-export default login;
+          <label>
+            <input required="" placeholder="" type="email" className="input" />
+            <span>Email</span>
+          </label>
+
+          <label>
+            <input
+              required=""
+              placeholder=""
+              type="password"
+              className="input"
+            />
+            <span>Password</span>
+          </label>
+          <label>
+            <input
+              required=""
+              placeholder=""
+              type="password"
+              className="input"
+            />
+            <span>Confirm password</span>
+          </label>
+          <button className="submit">Submit</button>
+          <p className="signin">
+            Already have an acount ? <a href="#">Signin</a>{" "}
+          </p>
+        </form>
+      </div>
+    </>
+  );
+};
+
+export default Login;
