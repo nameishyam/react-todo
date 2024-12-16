@@ -18,11 +18,10 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
-    static getAllTodos(userId, taskId) {
+    static getAllTodos(userId) {
       return this.findAll({
         where: {
           userId,
-          taskId,
         },
       });
     }

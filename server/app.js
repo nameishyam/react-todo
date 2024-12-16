@@ -49,4 +49,45 @@ app.post("/todos/:userEmail", (request, response) => {
 //   }
 // });
 
+app.post("/register", (request, response) => {
+  const { fname, lname, email, password } = request.body;
+  User.create({ fname, lname, email, password })
+    .then((user) => {
+      response.json(user);
+    })
+    .catch((error) => {
+      response.status(500).json({ error: error.message });
+    });
+});
+
+app.post("/login", (request, response) => {
+  const { email, password } = request.body;
+  User.findOne({
+    where: {
+      email,
+    },
+  })
+    .then((user) => {
+      if (user.password === password) {
+        response.json(user);
+      } else {
+        response.status(401).json({ error: "Invalid credentials" });
+      }
+    })
+    .catch((error) => {
+      response.status(500).json({ error: error.message });
+    });
+});
+
+app.get("/todos", async (request, response) => {
+  try {
+    const userId = request.body.id;
+    const user = await User.findByPk(userId);
+    const name = user.fname;
+    return response.json({ name });
+  } catch (error) {
+    return response.status(500).json({ error: error.message });
+  }
+});
+
 module.exports = app;
