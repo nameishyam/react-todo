@@ -1,4 +1,4 @@
-import { Axios } from "axios";
+import Axios from "axios";
 import Cookie from "js-cookie";
 import { useState } from "react";
 
