@@ -1,6 +1,4 @@
-import React from "react";
-
-function Footer() {
+const Footer = () => {
   return (
     <div className="bg-gray-800 py-4 fixed bottom-0 left-0 w-screen z-10">
       <div className="flex justify-center space-x-6">
@@ -23,6 +21,6 @@ function Footer() {
       </div>
     </div>
   );
-}
+};
 
 export default Footer;
