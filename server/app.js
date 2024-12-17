@@ -175,4 +175,28 @@ app.get("/tasks", async (request, response) => {
   }
 });
 
+app.post("/todo", async (request, response) => {
+  const { title, description, dueDate, progress, taskId, userEmail } =
+    request.body;
+  const user = await User.findOne({
+    where: {
+      email: userEmail,
+    },
+  });
+  const userId = user.id;
+  try {
+    const newTodo = await Todo.create({
+      title,
+      description,
+      dueDate,
+      progress,
+      userId,
+      taskId,
+    });
+    return response.status(200).json(newTodo);
+  } catch (error) {
+    return response.status(500).json({ error: error.message });
+  }
+});
+
 module.exports = app;

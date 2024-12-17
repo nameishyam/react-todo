@@ -12,18 +12,15 @@ const Register = () => {
     password: "",
   });
 
-  // Navigate to login
   const loginNavigate = () => {
     navigate("/login");
   };
 
-  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 

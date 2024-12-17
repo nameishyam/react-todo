@@ -8,6 +8,7 @@ import Login from "./auth/Login";
 import Footer from "./components/Footer";
 import User from "./auth/User";
 import Signout from "./auth/Signout";
+import Todo from "./components/Todo";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/tasks" element={<Todo />} />
           <Route path="/user" element={<User />} />
           <Route path="/about" element={<About />} />
           <Route path="/register" element={<Register />} />

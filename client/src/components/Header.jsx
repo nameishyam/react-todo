@@ -9,7 +9,7 @@ const Header = () => {
     navigate("/");
   };
   return (
-    <div className="bg-gray-800 py-4 px-6 shadow-lg">
+    <div className="bg-gray-800 py-4 px-6 fixed top-0 left-0 w-screen z-10">
       <div className="container mx-auto flex items-center justify-between">
         <h1 className="text-3xl font-bold text-white">Task Manager</h1>
         <div className="space-x-4">
