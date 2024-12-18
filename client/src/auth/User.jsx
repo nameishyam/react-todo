@@ -14,8 +14,11 @@ const User = () => {
 
   const [tasks, setTasks] = useState([]);
 
+  const navigate = useNavigate();
+
   const handleTasks = useCallback(async () => {
     const userEmail = Cookies.get("userEmail");
+    console.log("Fetching tasks for:", userEmail);
     try {
       const response = await Axios.get("http://localhost:8000/tasks", {
         params: { userEmail },
@@ -28,6 +31,7 @@ const User = () => {
 
   const handleUser = useCallback(async () => {
     const userEmail = Cookies.get("userEmail");
+    console.log("Fetching user for:", userEmail);
     try {
       const response = await Axios.get("http://localhost:8000/user", {
         params: { userEmail },
@@ -38,49 +42,57 @@ const User = () => {
     }
   }, []);
 
+  const handleSignout = useCallback(async () => {
+    try {
+      const response = await Axios.get("http://localhost:8000/signout");
+      if (response.status === 200) {
+        console.log("Signed out successfully");
+        Cookies.remove("userEmail");
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Failed to signout:", error);
+    }
+  }, []);
+
   useEffect(() => {
     handleUser();
     handleTasks();
   }, [handleUser, handleTasks]);
 
-  // Function for adding a new task
   const addTask = (newTask) => {
     setTasks((prevTasks) => [...prevTasks, newTask]);
   };
 
-  const navigate = useNavigate();
-  const signoutNavigate = () => {
-    navigate("/signout");
-  };
+  console.log("User state:", user);
 
   return (
     <>
-      <div className="bg-gray-800">
-        <div className="flex justify-between items-center px-8 py-4">
-          <h1 className="text-white text-4xl">
-            Welcome {user.fname} {user.lname} !
-          </h1>
+      <div className="flex flex-col justify-center items-center min-h-screen bg-gray-800 pt-16 pb-16">
+        <div className="text-center mb-8">
+          {user.fname && user.lname ? (
+            <h1 className="text-white text-3xl">
+              Welcome {user.fname} {user.lname} !
+            </h1>
+          ) : (
+            <h1 className="text-white text-2xl">Loading...</h1>
+          )}
           <button
-            onClick={signoutNavigate}
-            className="py-3 px-6 bg-gray-700 text-white rounded-md font-semibold hover:bg-gray-600 transition-all duration-200"
+            onClick={handleSignout}
+            className="px-6 py-3 bg-gray-700 text-white rounded-md font-semibold mt-4"
           >
             Signout
           </button>
         </div>
-        <div className="min-h-screen bg-gray-800 flex items-center justify-center">
-          <div className="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-6">
-            {/* Tasks Section */}
-            <div className="bg-white/10 backdrop-blur-md p-8 rounded-xl shadow-lg w-80 sm:w-96 transform transition duration-300 hover:scale-105">
-              <p className="text-white text-lg mb-3">Tasks</p>
-              {/* Pass `setTasks` for deletion and `addTask` for addition */}
-              <Tasks tasks={tasks} setTasks={setTasks} addTask={addTask} />
-            </div>
+        <div className="flex gap-6">
+          <div className="bg-white/10 backdrop-blur-md p-8 rounded-xl shadow-lg w-80 sm:w-96">
+            <p className="text-white text-lg mb-3">Tasks</p>
+            <Tasks tasks={tasks} setTasks={setTasks} addTask={addTask} />
+          </div>
 
-            {/* Add Task Section */}
-            <div className="bg-white/10 backdrop-blur-md p-8 rounded-xl shadow-lg w-80 sm:w-96 transform transition duration-300 hover:scale-105">
-              <p className="text-white text-lg mb-3">Add a Task</p>
-              <Task addTask={addTask} />
-            </div>
+          <div className="bg-white/10 backdrop-blur-md p-8 rounded-xl shadow-lg w-80 sm:w-96">
+            <p className="text-white text-lg mb-3">Add a Task</p>
+            <Task addTask={addTask} />
           </div>
         </div>
       </div>

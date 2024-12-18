@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Cookie from "js-cookie";
 import PropTypes from "prop-types";
 
@@ -36,6 +36,13 @@ const Task = ({ addTask }) => {
     }
   };
 
+  useEffect(() => {
+    setTask((prevTask) => ({
+      ...prevTask,
+      userEmail: Cookie.get("userEmail"),
+    }));
+  }, []);
+
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
       <input
@@ -49,7 +56,7 @@ const Task = ({ addTask }) => {
 
       <button
         type="submit"
-        className="w-full py-3 px-6 bg-gray-700 text-white rounded-md font-semibold hover:bg-gray-600 transition-all duration-200"
+        className="w-full py-3 px-6 bg-gray-700 text-white rounded-md font-semibold hover:bg-gray-600"
       >
         Add Task
       </button>

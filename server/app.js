@@ -10,6 +10,7 @@ const cors = require("cors");
 const { User, Todo, Task } = require("./models");
 
 var cookieParser = require("cookie-parser");
+const { nextTick } = require("process");
 
 const saltRounds = 10;
 
@@ -134,6 +135,15 @@ app.get("/user", async (request, response) => {
   } catch (error) {
     return response.status(500).json({ error: error.message });
   }
+});
+
+app.get("/signout", (request, response) => {
+  request.logout((error) => {
+    if (error) {
+      return response.status(500).json({ error: error.message });
+    }
+    return response.status(200).json({ message: "Logged out successfully" });
+  });
 });
 
 app.post("/task", async (request, response) => {

@@ -6,9 +6,10 @@ const About = () => {
           About
         </h1>
         <p className="text-gray-200 text-lg mb-2 tracking-wider">
-          Hello Guys! I'm Shyam Gowtham, I made this application with the help
-          of React and TailwindCSS. This is a simple task manager application
-          where you can add, delete, and update your tasks. I hope you like it.
+          Hello Guys! I&apos;m Shyam Gowtham, I made this application with the
+          help of React and TailwindCSS. This is a simple task manager
+          application where you can add, delete, and update your tasks. I hope
+          you like it.
         </p>
       </div>
     </div>

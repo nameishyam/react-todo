@@ -34,14 +34,12 @@ const Tasks = ({ tasks, setTasks }) => {
       {tasks.map((task) => (
         <li
           key={task.id}
-          className="py-2 px-4 bg-gray-700 rounded-md mb-2 cursor-pointer hover:bg-gray-600 transition-transform transform hover:-translate-y-1 duration-300 flex justify-between items-center shadow-lg"
+          className="py-2 px-4 bg-gray-700 rounded-md mb-2 cursor-pointer flex justify-between items-center shadow-lg"
           onClick={() => navigateToTodoTask(task.id, task.name)}
         >
-          <span className="transition-opacity duration-300 hover:opacity-90">
-            {task.name}
-          </span>
+          <span className="opacity-90">{task.name}</span>
           <button
-            className="ml-4 bg-gray-500 text-white py-1 px-2 rounded hover:bg-gray-400 transition-transform transform hover:scale-105 duration-300"
+            className="ml-4 bg-gray-500 text-white py-1 px-2 rounded hover:bg-gray-400"
             onClick={(e) => {
               e.stopPropagation();
               handleDelete(task.id);
