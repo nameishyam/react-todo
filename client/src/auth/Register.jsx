@@ -55,7 +55,6 @@ const Register = () => {
         onSubmit={handleSubmit}
         className="form flex flex-col gap-6 w-full max-w-md bg-white/10 backdrop-blur-md p-8 rounded-xl shadow-lg relative"
       >
-        {/* Title */}
         <p className="title text-4xl text-blue-400 font-bold tracking-tight text-center">
           Register
         </p>
@@ -63,70 +62,51 @@ const Register = () => {
           Register now and get full access to our app.
         </p>
 
-        {/* Input Fields */}
-        <div className="grid grid-cols-2 gap-6">
-          <label className="relative">
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="relative text-gray-200">First Name</label>
             <input
               name="fname"
-              value={formData.fname}
               onChange={handleChange}
               required
               placeholder=" "
               type="text"
-              className="input w-full p-4 outline-none border border-gray-300 rounded-xl focus:border-blue-400 peer leading-tight"
+              className="w-full py-3 px-4 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-gray-600"
             />
-            <span className="absolute left-4 top-4 text-gray-500 text-sm pointer-events-none transition-all peer-focus:top-2 peer-focus:text-xs peer-valid:top-2 peer-valid:text-xs">
-              Firstname
-            </span>
-          </label>
-
-          <label className="relative">
+          </div>
+          <div>
+            <label className="relative text-gray-200">Last Name</label>
             <input
               name="lname"
-              value={formData.lname}
               onChange={handleChange}
               required
               placeholder=" "
               type="text"
-              className="input w-full p-4 outline-none border border-gray-300 rounded-xl focus:border-blue-400 peer leading-tight"
+              className="w-full py-3 px-4 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-gray-600"
             />
-            <span className="absolute left-4 top-4 text-gray-500 text-sm pointer-events-none transition-all peer-focus:top-2 peer-focus:text-xs peer-valid:top-2 peer-valid:text-xs">
-              Lastname
-            </span>
-          </label>
+          </div>
         </div>
 
-        <label className="relative">
-          <input
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            placeholder=" "
-            type="email"
-            className="input w-full p-4 outline-none border border-gray-300 rounded-xl focus:border-blue-400 peer leading-tight"
-          />
-          <span className="absolute left-4 top-4 text-gray-500 text-sm pointer-events-none transition-all peer-focus:top-2 peer-focus:text-xs peer-valid:top-2 peer-valid:text-xs">
-            Email
-          </span>
-        </label>
+        <label className="relative text-gray-200">Email</label>
+        <input
+          name="email"
+          onChange={handleChange}
+          required
+          placeholder=" "
+          type="email"
+          className="w-full py-3 px-4 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-gray-600"
+        />
 
-        <label className="relative">
-          <input
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-            placeholder=" "
-            type="password"
-            className="input w-full p-4 outline-none border border-gray-300 rounded-xl focus:border-blue-400 peer leading-tight"
-          />
-          <span className="absolute left-4 top-4 text-gray-500 text-sm pointer-events-none transition-all peer-focus:top-2 peer-focus:text-xs peer-valid:top-2 peer-valid:text-xs">
-            Password
-          </span>
-        </label>
+        <label className="relative text-gray-200">Password</label>
+        <input
+          name="password"
+          onChange={handleChange}
+          required
+          placeholder=" "
+          type="password"
+          className="w-full py-3 px-4 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-gray-600"
+        />
 
-        {/* Submit Button */}
         <button
           type="submit"
           className="submit w-full bg-gray-700 p-4 rounded-xl text-white font-semibold text-lg hover:bg-gray-600 transition-transform active:scale-95"
@@ -134,7 +114,6 @@ const Register = () => {
           Submit
         </button>
 
-        {/* Sign-in Link */}
         <p className="signin text-center text-gray-200 text-sm">
           Already have an account?{" "}
           <button
