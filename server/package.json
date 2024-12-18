@@ -5,9 +5,9 @@
   "scripts": {
     "start": "nodemon index.js",
     "deploy": "node index.js",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "pretest": "NODE_ENV=test npx sequelize-cli db:drop && NODE_ENV=test npx sequelize-cli db:create",
+    "test": "NODE_ENV=test jest --detectOpenHandles",
+    "prepare": "husky"
   },
   "author": "shyam <geddamgowtham4@gmail.com>",
   "license": "ISC",
