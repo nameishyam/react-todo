@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
@@ -14,31 +14,34 @@ const User = () => {
 
   const [tasks, setTasks] = useState([]);
 
-  const handleTasks = async () => {
+  const handleTasks = useCallback(async () => {
+    const userEmail = Cookies.get("userEmail");
     try {
       const response = await Axios.get("http://localhost:8000/tasks", {
         params: { userEmail },
       });
-      setTasks(response.data); // Set the tasks directly
+      setTasks(response.data);
     } catch (error) {
       console.error("Failed to fetch tasks:", error);
     }
-  };
+  }, []);
 
-  const userEmail = Cookies.get("userEmail");
-  const handleUser = async () => {
-    const response = await Axios.get("http://localhost:8000/user", {
-      params: {
-        userEmail,
-      },
-    });
-    setUser(response.data);
-  };
+  const handleUser = useCallback(async () => {
+    const userEmail = Cookies.get("userEmail");
+    try {
+      const response = await Axios.get("http://localhost:8000/user", {
+        params: { userEmail },
+      });
+      setUser(response.data);
+    } catch (error) {
+      console.error("Failed to fetch user:", error);
+    }
+  }, []);
 
   useEffect(() => {
     handleUser();
     handleTasks();
-  }, []);
+  }, [handleUser, handleTasks]);
 
   const navigate = useNavigate();
   const signoutNavigate = () => {
