@@ -38,7 +38,6 @@ const Register = () => {
       if (response.status === 200) {
         console.log("Registration successful!");
         Cookie.set("userEmail", formData.email);
-        alert("Registration successful!");
         navigate("/user");
       } else {
         console.error("Registration failed");

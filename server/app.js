@@ -199,4 +199,25 @@ app.post("/todo", async (request, response) => {
   }
 });
 
+app.delete("/task/:id", async (request, response) => {
+  const id = request.params.id;
+  try {
+    await Todo.destroy({
+      where: {
+        taskId: id,
+      },
+    });
+    await Task.destroy({
+      where: {
+        id,
+      },
+    });
+    return response
+      .status(200)
+      .json({ id, message: "Task deleted successfully" });
+  } catch (error) {
+    return response.status(500).json({ error: error.message });
+  }
+});
+
 module.exports = app;

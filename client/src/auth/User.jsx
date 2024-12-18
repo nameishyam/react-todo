@@ -43,6 +43,11 @@ const User = () => {
     handleTasks();
   }, [handleUser, handleTasks]);
 
+  // Function for adding a new task
+  const addTask = (newTask) => {
+    setTasks((prevTasks) => [...prevTasks, newTask]);
+  };
+
   const navigate = useNavigate();
   const signoutNavigate = () => {
     navigate("/signout");
@@ -64,13 +69,17 @@ const User = () => {
         </div>
         <div className="min-h-screen bg-gray-800 flex items-center justify-center">
           <div className="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-6">
+            {/* Tasks Section */}
             <div className="bg-white/10 backdrop-blur-md p-8 rounded-xl shadow-lg w-80 sm:w-96 transform transition duration-300 hover:scale-105">
               <p className="text-white text-lg mb-3">Tasks</p>
-              <Tasks tasks={tasks} />
+              {/* Pass `setTasks` for deletion and `addTask` for addition */}
+              <Tasks tasks={tasks} setTasks={setTasks} addTask={addTask} />
             </div>
+
+            {/* Add Task Section */}
             <div className="bg-white/10 backdrop-blur-md p-8 rounded-xl shadow-lg w-80 sm:w-96 transform transition duration-300 hover:scale-105">
               <p className="text-white text-lg mb-3">Add a Task</p>
-              <Task />
+              <Task addTask={addTask} />
             </div>
           </div>
         </div>

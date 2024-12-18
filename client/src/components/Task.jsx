@@ -1,8 +1,9 @@
 import Axios from "axios";
 import { useState } from "react";
 import Cookie from "js-cookie";
+import PropTypes from "prop-types";
 
-const Task = () => {
+const Task = ({ addTask }) => {
   const [task, setTask] = useState({
     name: "",
     userEmail: Cookie.get("userEmail"),
@@ -26,6 +27,7 @@ const Task = () => {
       if (response.status === 200) {
         console.log("task added successfully");
         Cookie.set("task", task.name);
+        addTask(response.data);
       } else {
         console.log("task not added");
       }
@@ -37,7 +39,7 @@ const Task = () => {
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
       <input
-        name="name" // Match this with the state property
+        name="name"
         type="text"
         onChange={handleChange}
         placeholder=" "
@@ -53,6 +55,10 @@ const Task = () => {
       </button>
     </form>
   );
+};
+
+Task.propTypes = {
+  addTask: PropTypes.func.isRequired,
 };
 
 export default Task;
