@@ -7,7 +7,6 @@ import Register from "./auth/Register";
 import Login from "./auth/Login";
 import Footer from "./components/Footer";
 import User from "./auth/User";
-import Signout from "./auth/Signout";
 import Todo from "./components/Todo";
 
 const App = () => {
@@ -22,7 +21,6 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/signout" element={<Signout />} />
         </Routes>
         <Footer />
       </Router>
