@@ -1,8 +1,11 @@
 import Axios from "axios";
 import Cookie from "js-cookie";
 import { useState } from "react";
+import DisplayTodo from "./DisplayTodo";
+import Footer from "./Footer";
+import Header from "./Header";
 
-function Todo() {
+const Todo = () => {
   const taskId = Cookie.get("taskId");
   const taskName = Cookie.get("taskName");
   const [formData, setFormData] = useState({
@@ -15,6 +18,8 @@ function Todo() {
   });
 
   const [todos, setTodos] = useState([]);
+  const [showDisplayTodo, setShowDisplayTodo] = useState(false);
+  const [selectedTodoId, setSelectedTodoId] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,6 +41,7 @@ function Todo() {
       );
       if (response.status === 200) {
         console.log("Todo added successfully!");
+        await allTodos();
       } else {
         console.error("Failed to add todo");
       }
@@ -59,41 +65,48 @@ function Todo() {
     }
   };
 
+  const handleTodoClick = (todoId) => {
+    setSelectedTodoId(selectedTodoId === todoId ? null : todoId);
+    setShowDisplayTodo(selectedTodoId !== todoId);
+  };
+
   return (
-    <div className="bg-gray-800 min-h-screen flex items-center justify-center">
-      <div className="flex flex-row items-start justify-center gap-8 px-8 py-10">
-        {/* Random Text Container */}
-        <div className="flex flex-col items-center justify-center w-1/2 bg-white/10 backdrop-blur-md p-8 rounded-xl shadow-lg">
+    <>
+      <Header />
+      <div className="bg-gray-800 min-h-screen flex flex-col items-center justify-center pt-20 pb-16">
+        <div className="w-3/4 flex flex-col items-center justify-center bg-white/10 backdrop-blur-md p-8 rounded-xl shadow-lg mb-8">
           <h1 className="text-white text-4xl font-bold mb-6">
             Todos for {taskName}
           </h1>
           <p className="text-gray-300 text-lg mb-4">
             This is some random text.
           </p>
-          <button
-            onClick={allTodos}
-            className="mt-4 bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-gray-600 transition duration-300"
-          >
-            Load All Todos
-          </button>
-          <ul className="mt-4 text-white">
+          <div className="w-full flex flex-col gap-4 mt-4">
             {todos.map((todo) => (
-              <li key={todo.id}>{todo.title}</li>
+              <div
+                key={todo.id}
+                className="bg-gray-700 p-4 rounded-lg shadow-md"
+              >
+                <button
+                  onClick={() => handleTodoClick(todo.id)}
+                  className="text-white underline"
+                >
+                  {todo.title}
+                </button>
+                {showDisplayTodo && selectedTodoId === todo.id && (
+                  <DisplayTodo todoId={selectedTodoId} />
+                )}
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
 
-        {/* Existing Form Container */}
-        <div className="flex flex-col items-center justify-center w-1/2">
+        <div className="w-3/4 flex flex-col items-center justify-center bg-white/10 backdrop-blur-md p-8 rounded-xl shadow-lg">
           <h1 className="text-white text-4xl font-bold mb-6">{taskName}</h1>
           <h2 className="text-gray-300 text-lg mb-4">
             Add Todo for this task:
           </h2>
-          <form
-            onSubmit={handleSubmit}
-            className="w-full max-w-md bg-white/10 backdrop-blur-md p-8 rounded-xl shadow-lg flex flex-col gap-8"
-          >
-            {/* Title Field */}
+          <form onSubmit={handleSubmit} className="w-full flex flex-col gap-8">
             <label className="relative block text-white">
               <input
                 name="title"
@@ -109,7 +122,6 @@ function Todo() {
               </span>
             </label>
 
-            {/* Description Field */}
             <label className="relative block text-white">
               <input
                 name="description"
@@ -125,7 +137,6 @@ function Todo() {
               </span>
             </label>
 
-            {/* Due Date Field */}
             <label className="relative block text-white">
               <input
                 name="dueDate"
@@ -141,7 +152,6 @@ function Todo() {
               </span>
             </label>
 
-            {/* Submit Button */}
             <button
               type="submit"
               className="w-full bg-gray-700 text-white font-semibold py-3 rounded-lg shadow-md hover:bg-gray-600 transition duration-300"
@@ -151,8 +161,9 @@ function Todo() {
           </form>
         </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
-}
+};
 
 export default Todo;

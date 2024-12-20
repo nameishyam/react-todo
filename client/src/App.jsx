@@ -2,18 +2,16 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.css";
 import Home from "./components/Home";
 import About from "./components/About";
-import Header from "./components/Header";
 import Register from "./auth/Register";
 import Login from "./auth/Login";
-import Footer from "./components/Footer";
 import User from "./auth/User";
 import Todo from "./components/Todo";
+import DisplayTodo from "./components/DisplayTodo";
 
 const App = () => {
   return (
     <div className="app-container">
       <Router>
-        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/tasks" element={<Todo />} />
@@ -21,8 +19,8 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/displayTodo" element={<DisplayTodo />} />
         </Routes>
-        <Footer />
       </Router>
     </div>
   );
