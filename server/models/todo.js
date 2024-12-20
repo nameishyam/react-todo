@@ -18,10 +18,10 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
-    static getAllTodos(userId) {
+    static getAllTodos(taskId) {
       return this.findAll({
         where: {
-          userId,
+          taskId,
         },
       });
     }
@@ -34,16 +34,6 @@ module.exports = (sequelize, DataTypes) => {
         userId,
         taskId,
         completed: false,
-      });
-    }
-
-    static async deleteTodo(id, userId, taskId) {
-      await this.destroy({
-        where: {
-          id,
-          userId,
-          taskId,
-        },
       });
     }
 

@@ -204,6 +204,16 @@ app.post("/todo", async (request, response) => {
   }
 });
 
+app.get("/todos", async (request, response) => {
+  const taskId = request.query.taskId;
+  try {
+    const todos = await Todo.getAllTodos(taskId);
+    return response.status(200).json(todos);
+  } catch (error) {
+    return response.status(500).json({ error: error.message });
+  }
+});
+
 app.delete("/task/:id", async (request, response) => {
   const id = request.params.id;
   try {
