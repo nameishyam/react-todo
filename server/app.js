@@ -155,7 +155,7 @@ app.post("/task", async (request, response) => {
   });
   const userId = user.id;
   try {
-    const newTask = await Task.create({
+    const newTask = await Task.createTask({
       name,
       userId,
     });
@@ -186,8 +186,7 @@ app.get("/tasks", async (request, response) => {
 });
 
 app.post("/todo", async (request, response) => {
-  const { title, description, dueDate, progress, taskId, userEmail } =
-    request.body;
+  const { title, description, dueDate, taskId, userEmail } = request.body;
   const user = await User.findOne({
     where: {
       email: userEmail,
@@ -195,11 +194,10 @@ app.post("/todo", async (request, response) => {
   });
   const userId = user.id;
   try {
-    const newTodo = await Todo.create({
+    const newTodo = await Todo.createTodo({
       title,
       description,
       dueDate,
-      progress,
       userId,
       taskId,
     });

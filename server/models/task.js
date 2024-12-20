@@ -26,9 +26,10 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
-    static createTask(name) {
+    static createTask(name, userId) {
       return this.create({
         name,
+        userId,
         completed: false,
       });
     }

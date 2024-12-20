@@ -26,12 +26,14 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
-    static createTodo({ title, description, dueDate, progress }) {
+    static createTodo({ title, description, dueDate, userId, taskId }) {
       return this.create({
         title,
         description,
         dueDate,
-        progress,
+        userId,
+        taskId,
+        completed: false,
       });
     }
 
@@ -56,7 +58,7 @@ module.exports = (sequelize, DataTypes) => {
       title: DataTypes.STRING,
       description: DataTypes.STRING,
       dueDate: DataTypes.DATEONLY,
-      progress: DataTypes.INTEGER,
+      completed: DataTypes.BOOLEAN,
     },
     {
       sequelize,
