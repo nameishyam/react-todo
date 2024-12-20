@@ -18,14 +18,20 @@ const Task = ({ addTask }) => {
     e.preventDefault();
 
     try {
-      const response = await Axios.post("http://localhost:8000/task", task, {
-        headers: {
-          "Content-Type": "application/json",
+      const response = await Axios.post(
+        "http://localhost:8000/task",
+        {
+          name: task.name,
+          userEmail: task.userEmail,
         },
-      });
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (response.status === 200) {
-        console.log("task added successfully");
         Cookie.set("task", task.name);
         addTask(response.data);
       } else {

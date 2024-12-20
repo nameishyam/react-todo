@@ -155,10 +155,7 @@ app.post("/task", async (request, response) => {
   });
   const userId = user.id;
   try {
-    const newTask = await Task.createTask({
-      name,
-      userId,
-    });
+    const newTask = await Task.createTask(name, userId);
     return response.status(200).json(newTask);
   } catch (error) {
     return response.status(500).json({ error: error.message });

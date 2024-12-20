@@ -42,18 +42,18 @@ const User = () => {
     }
   }, []);
 
-  const handleSignout = useCallback(async () => {
+  const handleSignout = async () => {
     try {
       const response = await Axios.get("http://localhost:8000/signout");
       if (response.status === 200) {
         console.log("Signed out successfully");
-        Cookies.remove("userEmail");
+        ["userEmail", "taskId", "taskName"].forEach(Cookies.remove);
         navigate("/");
       }
     } catch (error) {
       console.error("Failed to signout:", error);
     }
-  }, []);
+  };
 
   useEffect(() => {
     handleUser();
